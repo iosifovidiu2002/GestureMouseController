@@ -1,4 +1,4 @@
-# Gesture-Controlled-Mouse
+# Gesture Mouse Controller
 ## Short Description
 #### Used the MediaPipe library to build an interactive way to use the mouse.
 &nbsp;
