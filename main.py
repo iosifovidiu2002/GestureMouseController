@@ -1,10 +1,7 @@
 import cv2
-import mediapipe as mp
 import time
-import pyautogui
 import numpy as np
 import HandTracking as ht
-import math
 from pynput.mouse import Button, Controller
 
 mouse = Controller()
@@ -30,12 +27,10 @@ distances = {}
 last_activation_time = time.time()
 detector = ht.HandTracker(mouseTracking=False, minDetConf=0.75, minTrConf=0.75)
 clicked = False
-
+mouseTracking = False
 while True:
     success, img = cap.read()
-    # cv2.flip(img, 0)
-    img, landmarks, g = detector.findHandsandList(img, list=True)
-    # img = detector.mouseTrack(img)
+    img, landmarks, g = detector.findHandsAndList(img, list=True)
     cTime = time.time()
     fps = 1 / (cTime - pTime)
     pTime = cTime
@@ -56,7 +51,8 @@ while True:
         # Activate Click Mechanism
         if a2 < 0.2:
             if time.time() - last_activation_time > 0.4:
-                detector.setMouseTracking()
+                mouseTracking = not mouseTracking
+                detector.setMouseTracking(mouseTracking)
                 last_activation_time = time.time()
 
         # Click-Mechanism
